@@ -2,7 +2,7 @@
  * @Author: Vincent Yang
  * @Date: 2024-04-23 00:39:03
  * @LastEditors: Vincent Yang
- * @LastEditTime: 2024-06-18 02:40:52
+ * @LastEditTime: 2024-09-17 19:34:32
  * @FilePath: /DeepLX/config.go
  * @Telegram: https://t.me/missuo
  * @GitHub: https://github.com/missuo
@@ -14,13 +14,21 @@ package main
 
 import (
 	"flag"
-	"os"
 	"fmt"
+	"os"
 )
+
+type Config struct {
+	IP        string
+	Port      int
+	Token     string
+	DlSession string
+	Proxy     string
+}
 
 func initConfig() *Config {
 	cfg := &Config{
-		IP: "0.0.0.0",
+		IP:   "0.0.0.0",
 		Port: 1188,
 	}
 
@@ -51,14 +59,6 @@ func initConfig() *Config {
 	if cfg.Token == "" {
 		if token, ok := os.LookupEnv("TOKEN"); ok {
 			cfg.Token = token
-		}
-	}
-
-	// DeepL Official Authentication key flag
-	flag.StringVar(&cfg.AuthKey, "authkey", "", "The authentication key for DeepL API")
-	if cfg.AuthKey == "" {
-		if authKey, ok := os.LookupEnv("AUTHKEY"); ok {
-			cfg.AuthKey = authKey
 		}
 	}
 
